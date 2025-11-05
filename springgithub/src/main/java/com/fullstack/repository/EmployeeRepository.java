@@ -1,4 +1,14 @@
 package com.fullstack.repository;
 
-public interface EmployeeRepository {
+import com.fullstack.entity.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+
+@Repository
+
+public interface EmployeeRepository extends JpaRepository<Employee,Long> {
+
+    Employee findByEmpEmailIdAndEmpPassword(String empEmilId, String empPassword);
+
 }
