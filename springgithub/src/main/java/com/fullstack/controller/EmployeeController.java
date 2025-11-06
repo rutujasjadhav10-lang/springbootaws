@@ -25,7 +25,7 @@ public class EmployeeController {
         return  new ResponseEntity<>(employeeService.signUp(employee), HttpStatus.CREATED);
     }
 
-    @GetMapping("/signin")
+    @GetMapping("/signin/{empEmailId}/{empPassword}")
     public ResponseEntity<Boolean> signIn(@PathVariable String empEmailId,@PathVariable String empPassword){
         return new ResponseEntity<>(employeeService.signIn(empEmailId,empPassword),HttpStatus.OK);
     }
@@ -42,9 +42,28 @@ public class EmployeeController {
 
     }
 
-    @GetMapping("findall")
+    @GetMapping("/findall")
     public ResponseEntity<List<Employee>> findAll(){
         return new ResponseEntity<>(employeeService.findAll(),HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{empId}")
+    public ResponseEntity<Employee> update(@RequestBody Employee employee,@PathVariable long empId){
+        return new ResponseEntity<>(employeeService.update(employee,empId),HttpStatus.OK);
+
+    }
+
+    @DeleteMapping("/deletebyid/{empId}")
+    public ResponseEntity<String> deleteById(@PathVariable long empId){
+        employeeService.deleteById(empId);
+        return  new ResponseEntity<>("delete by id ",HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<String> deleteAll(){
+        employeeService.deleteAll();
+        return  new ResponseEntity<>("delete all",HttpStatus.OK);
     }
 
 
